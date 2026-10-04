@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Job Description Analyzer</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="/" class="brand">
+                AI Job Analyzer
+            </a>
+
+            <nav class="nav-links">
+                <a href="#analyzer">Analyzer</a>
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-container">
+
+                <div class="hero-content">
+
+                    <span class="eyebrow">
+                        AI-POWERED CAREER INTELLIGENCE
+                    </span>
+
+                    <h1>
+                        Understand any job description
+                        <span>in seconds.</span>
+                    </h1>
+
+                    <p>
+                        Turn complex job descriptions into clear skills,
+                        priorities, learning roadmaps and portfolio project
+                        ideas using AI.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ANALYZER ================= -->
+
+        <section id="analyzer" class="analyzer-section">
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        01
+                    </span>
+
+                    <div>
+                        <h2>
+                            Analyze a Job Description
+                        </h2>
+
+                        <p>
+                            Paste a job description below and let AI break
+                            it into practical career insights.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="analyzer-card">
+
+                    <div class="input-header">
+
+                        <label for="jobDescription">
+                            Job Description
+                        </label>
+
+                        <span id="characterCount">
+                            0 / 30000
+                        </span>
+
+                    </div>
+
+
+                    <textarea
+                        id="jobDescription"
+                        maxlength="30000"
+                        placeholder="Paste the job description here..."
+                    ></textarea>
+
+
+                    <div class="analyzer-actions">
+
+                        <button
+                            id="analyzeButton"
+                            class="primary-button"
+                        >
+                            Analyze Job
+                        </button>
+
+                        <span class="input-hint">
+                            AI analysis usually takes a few seconds.
+                        </span>
+
+                    </div>
+
+
+                    <!-- Loading -->
+
+                    <div
+                        id="loadingState"
+                        class="loading-state hidden"
+                    >
+
+                        <div class="spinner"></div>
+
+                        <div>
+                            <strong>
+                                Analyzing job description...
+                            </strong>
+
+                            <p>
+                                Extracting skills, requirements and
+                                career recommendations.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Error -->
+
+                    <div
+                        id="errorState"
+                        class="error-state hidden"
+                    >
+                        <strong>
+                            Analysis failed
+                        </strong>
+
+                        <p id="errorMessage"></p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RESULTS ================= -->
+
+        <section
+            id="results"
+            class="results-section hidden"
+        >
+
+            <div class="section-container">
+
+                <div class="results-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            ANALYSIS COMPLETE
+                        </span>
+
+                        <h2 id="resultJobTitle">
+                            Job Analysis
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="results-grid">
+
+
+                    <!-- Summary -->
+
+                    <article class="result-card result-card-wide">
+
+                        <span class="result-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Summary
+                        </h3>
+
+                        <p id="summaryResult"></p>
+
+                    </article>
+
+
+                    <!-- Technical Skills -->
+
+                    <article class="result-card">
+
+                        <span class="result-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Technical Skills
+                        </h3>
+
+                        <div id="technicalSkillsResult"></div>
+
+                    </article>
+
+
+                    <!-- Soft Skills -->
+
+                    <article class="result-card">
+
+                        <span class="result-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Soft Skills
+                        </h3>
+
+                        <div id="softSkillsResult"></div>
+
+                    </article>
+
+
+                    <!-- Tools -->
+
+                    <article class="result-card">
+
+                        <span class="result-number">
+                            04
+                        </span>
+
+                        <h3>
+                            Tools & Technologies
+                        </h3>
+
+                        <div id="toolsResult"></div>
+
+                    </article>
+
+
+                    <!-- Experience -->
+
+                    <article class="result-card">
+
+                        <span class="result-number">
+                            05
+                        </span>
+
+                        <h3>
+                            Experience
+                        </h3>
+
+                        <div id="experienceResult"></div>
+
+                    </article>
+
+
+                    <!-- Education -->
+
+                    <article class="result-card">
+
+                        <span class="result-number">
+                            06
+                        </span>
+
+                        <h3>
+                            Education
+                        </h3>
+
+                        <div id="educationResult"></div>
+
+                    </article>
+
+
+                    <!-- Priority -->
+
+                    <article class="result-card">
+
+                        <span class="result-number">
+                            07
+                        </span>
+
+                        <h3>
+                            Priority Skills
+                        </h3>
+
+                        <div id="prioritySkillsResult"></div>
+
+                    </article>
+
+
+                    <!-- Keywords -->
+
+                    <article class="result-card">
+
+                        <span class="result-number">
+                            08
+                        </span>
+
+                        <h3>
+                            Important Keywords
+                        </h3>
+
+                        <div id="keywordsResult"></div>
+
+                    </article>
+
+
+                    <!-- Roadmap -->
+
+                    <article class="result-card result-card-wide">
+
+                        <span class="result-number">
+                            09
+                        </span>
+
+                        <h3>
+                            Learning Roadmap
+                        </h3>
+
+                        <div id="roadmapResult"></div>
+
+                    </article>
+
+
+                    <!-- Projects -->
+
+                    <article class="result-card result-card-wide">
+
+                        <span class="result-number">
+                            10
+                        </span>
+
+                        <h3>
+                            Portfolio Project Ideas
+                        </h3>
+
+                        <div id="projectsResult"></div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FEATURES ================= -->
+
+        <section
+            id="features"
+            class="features-section"
+        >
+
+            <div class="section-container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        02
+                    </span>
+
+                    <div>
+
+                        <h2>
+                            Built for practical career preparation
+                        </h2>
+
+                        <p>
+                            Convert job requirements into actionable
+                            preparation steps.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="features-grid">
+
+                    <div class="feature-card">
+
+                        <span>
+                            01
+                        </span>
+
+                        <h3>
+                            Skill Extraction
+                        </h3>
+
+                        <p>
+                            Identify technical skills, tools and
+                            technologies from complex job descriptions.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            02
+                        </span>
+
+                        <h3>
+                            Priority Analysis
+                        </h3>
+
+                        <p>
+                            Separate general requirements from the
+                            skills that deserve the most attention.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            03
+                        </span>
+
+                        <h3>
+                            Learning Roadmap
+                        </h3>
+
+                        <p>
+                            Turn job requirements into a practical
+                            learning sequence.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <span>
+                            04
+                        </span>
+
+                        <h3>
+                            Portfolio Ideas
+                        </h3>
+
+                        <p>
+                            Discover project ideas aligned with the
+                            technologies requested by employers.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ABOUT ================= -->
+
+        <section
+            id="about"
+            class="about-section"
+        >
+
+            <div class="section-container">
+
+                <div class="about-card">
+
+                    <span class="eyebrow">
+                        ABOUT
+                    </span>
+
+                    <h2>
+                        AI-powered career intelligence
+                    </h2>
+
+                    <p>
+                        AI Job Description Analyzer converts unstructured
+                        job descriptions into practical information for
+                        students, developers and job seekers.
+                    </p>
+
+                    <p>
+                        The application uses FastAPI for the backend,
+                        Groq for AI analysis and a lightweight frontend
+                        designed for fast deployment.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="section-container">
+
+            <div class="footer-content">
+
+                <strong>
+                    AI Job Description Analyzer
+                </strong>
+
+                <span>
+                    Built for practical career preparation.
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="/static/app.js"></script>
+
+</body>
+</html>
